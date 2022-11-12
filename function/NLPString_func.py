@@ -1,12 +1,12 @@
 from eunjeon import Mecab
 import nltk
 import json
-from WordManage import search_word
+from function.DataManage import search_word
 # import mecab
 mecab = Mecab()
 # POS tag a sentence
-sentence = input("문장 입력하시오:")
-def NLP(sentence):
+# sentence = input("문장 입력하시오:")
+def getNLP(sentence):
     words = Mecab().pos(sentence)
 
     verb_re, noun_re, js_word, word_re, cant_word = [], [], [], [], []
@@ -78,4 +78,4 @@ def NLP(sentence):
             }
         }
     return(json_object)
-print(NLP(sentence))
+# print(NLP(sentence))

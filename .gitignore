@@ -1,5 +1,9 @@
 venv
 json_backup
 model
+
 인간.csv
+human.csv
+tmp_video
+
 word.db

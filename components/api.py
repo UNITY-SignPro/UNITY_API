@@ -1,22 +1,18 @@
 from fastapi import Depends, APIRouter, status
 import sys
-# from function.NLPString import getNLP
-from function.NLPString import getNLP
-#
-from pydantic import BaseModel
-from typing import Optional
-
-
-
+from function.NLPString_func import getNLP
+from function.video_fusion import checkVideo
 
 sys.path.append("..")
 router = APIRouter(
     prefix="/api",
     tags=["api"],
-    # responses={401: {"user": "Not authorized"}},
 )
 
+@router.get("/")
+def read_root():
+    return checkVideo(['호박', '홍콩', '가마', '홍콩', '가마', '홍콩', '가마', '홍콩', '가마', '홍콩', '가마'])
+
 @router.get("/data")
-async def GetterDate(query: str = ''):
-    return getNLP(query)
-    return "SelectData(query)"
+async def GetterDate(str: str = ''):
+    return getNLP(str)
