@@ -1,9 +1,9 @@
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from components import api
-# from function.NLPString import getNLP
+from components import api, tmp_video
 
 app = FastAPI()
+
 # CORS 해결
 origins = [
     "http://localhost",
@@ -18,12 +18,4 @@ app.add_middleware(
 )
 
 app.include_router(api.router)
-
-# # root page
-# @app.get("/")
-# def read_root():
-#     return "welcome to the unity api server"
-#
-# @app.get("/translate")
-# async def translate(str: str = ""):
-#     return getNLP(str)
+app.include_router(tmp_video.router)

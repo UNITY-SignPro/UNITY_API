@@ -1,5 +1,11 @@
+import json
+from typing import Optional
+
 from fastapi import Depends, APIRouter, status
 import sys
+
+from pydantic import BaseModel
+
 from function.NLPString_func import getNLP
 from function.video_fusion import checkVideo
 
@@ -9,10 +15,16 @@ router = APIRouter(
     tags=["api"],
 )
 
-@router.get("/")
-def read_root():
-    return checkVideo(['호박', '홍콩', '가마', '홍콩', '가마', '홍콩', '가마', '홍콩', '가마', '홍콩', '가마'])
 
-@router.get("/data")
+
+class WordModel(BaseModel):
+    words: list
+
+# 추가 필요
+@router.get("/model")
+def read_root(str: str = ''):
+    return checkVideo(str.split(', '))
+
+@router.get("/translate")
 async def GetterDate(str: str = ''):
     return getNLP(str)

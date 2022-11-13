@@ -10,6 +10,9 @@ def formmating(word):
 def search_word(word):
     return c.execute(f"SELECT * FROM word WHERE origin = '{word}'").fetchone()
 
+def search_word2():
+    return c.execute(f"SELECT * FROM word").fetchall()
+
 def search_link(word):
     return c.execute(f"SELECT * FROM link WHERE word = '{word}'").fetchone()
 
@@ -20,18 +23,22 @@ c = conn.cursor()
 
 # NLP 단어 저장
 # 테이블 생성
-# c.execute('''CREATE TABLE IF NOT EXISTS word
-#             (origin text,
-#             rename text)''')
-# # 데이터 삽입
-# for origin, rename in iter(excel_sheet_1):
-#     c.execute("INSERT INTO word VALUES(?,?);", (formmating(origin), formmating(rename)))
-# # 데이터 저장
-# conn.commit()
-#
-#
 import pandas as pd
 import numpy as np
+
+excek_sheet_1 = pd.read_csv('인간.csv')
+excel_sheet_1=list(np.array(excek_sheet_1.values.tolist()))
+c.execute('''CREATE TABLE IF NOT EXISTS word
+            (origin text,
+            rename text)''')
+# 데이터 삽입
+for origin, rename in iter(excel_sheet_1):
+    c.execute("INSERT INTO word VALUES(?,?);", (formmating(origin), formmating(rename)))
+# 데이터 저장
+conn.commit()
+
+
+
 excek_sheet_1 = pd.read_csv('human.csv')
 excel_sheet_1=list(np.array(excek_sheet_1.values.tolist()))
 # Video Link 저장
